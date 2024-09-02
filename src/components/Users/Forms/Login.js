@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUseraction } from "../../../Redux/Slices/Users/userSlice";
+import ErrorMsg from "../../ErrorMsg/ErrorMsg";
+import LoadingComponent from "../../LoadingComp/LoadingComponent";
 
 const Login = () => {
+  //!---dispatch
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
-    email: "admin@gmail.com",
-    password: "12345",
+    email: "shubham@gmail.com",
+    password: "123456",
   });
   //---Destructuring---
   const { email, password } = formData;
@@ -15,14 +22,23 @@ const Login = () => {
   //---onsubmit handler----
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    dispatch(loginUseraction(formData));
   };
 
-  //select store data
-  const { loading, userAuth } = {};
+  //! get data from store
+  const { error, loading, userInfo } = useSelector(
+    (state) => state?.users?.userAuth
+  );
+
   //redirect
-  if (userAuth?.userInfo?.status) {
-    window.location.href = "/admin";
-  }
+
+  // if (userInfo?.data?.isAdmin) {
+  //   window.location.href = "/admin";
+  // } else {
+  //   window.location.href = "/customer-profile";
+  // }
+
   return (
     <>
       <section className="py-20 bg-gray-100 overflow-x-hidden">
@@ -37,9 +53,11 @@ const Login = () => {
                 <p className="mb-10 font-semibold font-heading">
                   Happy to see you again
                 </p>
+                {error && <ErrorMsg message={error?.message} />}
                 <form
                   className="flex flex-wrap -mx-4"
-                  onSubmit={onSubmitHandler}>
+                  onSubmit={onSubmitHandler}
+                >
                   <div className="w-full md:w-1/2 px-4 mb-8 md:mb-12">
                     <label>
                       <h4 className="mb-5 text-gray-400 uppercase font-bold font-heading">
@@ -70,9 +88,13 @@ const Login = () => {
                   </div>
 
                   <div className="w-full px-4">
-                    <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
-                      Login
-                    </button>
+                    {loading ? (
+                      <LoadingComponent />
+                    ) : (
+                      <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
+                        Login
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>
@@ -82,7 +104,8 @@ const Login = () => {
               style={{
                 backgroundImage:
                   'url("https://cdn.pixabay.com/photo/2017/03/29/04/47/high-heels-2184095_1280.jpg")',
-              }}></div>
+              }}
+            ></div>
           </div>
         </div>
       </section>
