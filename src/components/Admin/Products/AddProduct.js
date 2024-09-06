@@ -63,17 +63,17 @@ export default function AddProduct() {
     dispatch(createProductAction(formData));
     console.log(formData);
     //reset form data
-    // setFormData({
-    //   name: "",
-    //   description: "",
-    //   category: "",
-    //   sizes: "",
-    //   brand: "",
-    //   colors: "",
-    //   images: "",
-    //   price: "",
-    //   totalQty: "",
-    // });
+    setFormData({
+      name: "",
+      description: "",
+      category: "",
+      sizes: "",
+      brand: "",
+      colors: "",
+      images: "",
+      price: "",
+      totalQty: "",
+    });
   };
 
   return (

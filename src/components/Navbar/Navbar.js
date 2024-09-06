@@ -188,7 +188,7 @@ export default function Navbar() {
                     <Link to="/">
                       <span className="sr-only">Your Company</span>
                       <img
-                        className="h-32 pt-2 w-auto"
+                        className="h-10 pt-2 w-auto"
                         src={logo}
                         alt="i-novotek logo"
                       />
@@ -255,7 +255,7 @@ export default function Navbar() {
                   {/* logo */}
                   <Link to="/" className="lg:hidden">
                     <img
-                      className="h-32 mt-2 w-auto"
+                      className="h-10 mt-2 w-auto"
                       src={logo}
                       alt="i-novotek logo"
                     />
